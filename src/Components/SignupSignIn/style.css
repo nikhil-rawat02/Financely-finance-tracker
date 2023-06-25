@@ -10,4 +10,19 @@
     font-weight: 500;
     font-size: 1.2rem;
     text-align: center;
+    margin-bottom: 0.8rem;
+}
+.callLogin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+.callLogin >a, .callLogin > span{
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.callLogin >a{
+    color: var(--theme);
 }
