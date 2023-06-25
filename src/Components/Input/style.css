@@ -1,0 +1,23 @@
+.input_wrapper{
+    margin-bottom: 0.8rem;
+}
+.input_wrapper_lable{
+    text-transform: capitalize;
+    font-size: 0.8rem;
+}
+.custom_input{
+    border-width: 0;
+    border-bottom-width: 1px;
+    width: 100%;
+    padding: 0.5rem 0rem;
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+.custom_input:focus{
+    outline: none;
+    opacity: 1;
+    transition: all 0.2s;
+}
+.custom_input::placeholder{
+    color: grey;
+}
