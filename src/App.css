@@ -15,3 +15,17 @@
 input{
     font-family:'Montserrat', sans-serif ;
 }
+.custom_input{
+    margin-top: -1rem !important;
+    padding: 5px !important;
+}
+
+.custom_input::placeholder{
+    color: gray;
+}
+.custom_input:focus{
+    outline: none;
+    opacity: 1;
+    transition: all 0.5s;
+    border: 2px solid var(--theme);
+}

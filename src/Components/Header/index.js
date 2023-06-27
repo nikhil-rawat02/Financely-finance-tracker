@@ -12,7 +12,7 @@ function Header() {
   const navigate = useNavigate();
   useEffect(() => {
     if (user) {
-      navigate('dashboard');
+      // navigate('dashboard');
     }
   }, [user, loading])
 

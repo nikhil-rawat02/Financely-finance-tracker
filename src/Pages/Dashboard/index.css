@@ -1,0 +1,7 @@
+.account_details_cards_container{
+    padding: 2rem;
+}
+.ant-card-body{
+    font-family: 'Montserrat', sans-serif;
+    padding: 10px 24px !important;
+}

@@ -1,0 +1,16 @@
+.my_card{
+    box-shadow: var(--box-shadow);
+    min-width: 300;
+    padding: 0.2rem !important;
+}
+.my_row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 2rem auto ;
+
+}
+.ant-card-body p{
+    margin-left: 1.1rem;
+}

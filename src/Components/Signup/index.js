@@ -50,7 +50,6 @@ function SignUp({ setLoginForm }) {
         setName(""); setEmail(""); setPassword(""); setConfirmPassword("");
         setLoading(false);
         toast.success("Account created!")
-        navigate("/login");
       } catch (err) {
         setLoading(false);
         setError(err.message);
@@ -72,14 +71,14 @@ function SignUp({ setLoginForm }) {
       .then(async (response) => {
         setLoading(true);
         const user = response.user;
-        await setDoc(doc(db, "user", user.uid), {
+        await setDoc(doc(db, "users", user.uid), {
           name: user.displayName,
           email: user.email,
           profileImage: user.photoURL,
           createdAt : new Date(),
         })
         // set user in context api and if user is not present fetch from firestore else get data from context api
-        toast.success("Account created!");
+        toast.success(`Welcome! ${user.displayName}`);
         setLoading(false);
         navigate("dashboard");
       })
