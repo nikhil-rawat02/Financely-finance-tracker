@@ -4,13 +4,12 @@ import Input from '../Input';
 import Button from '../Button';
 import Breaker from '../Breaker';
 import { toast } from 'react-toastify';
-import { GoogleAuthProvider, createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, db, doc, setDoc, provider } from '../../firebase';
-import { Link, useNavigate } from 'react-router-dom';
-import Login from '../Login';
+import { useNavigate } from 'react-router-dom';
 import { signInWithPopup } from 'firebase/auth';
 
-function SignupSignIn() {
+function SignUp({ setLoginForm }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,44 +21,44 @@ function SignupSignIn() {
   const handleSignUpUser = async (e) => {
     e.preventDefault();
 
-    if(!name || !email || !password || !confirmPassword){
-      if(!name){
+    if (!name || !email || !password || !confirmPassword) {
+      if (!name) {
         toast.error("Enter Name")
-      }else if(name.split(" ").length < 2){
+      } else if (name.split(" ").length < 2) {
         toast.error("Enter Full name")
-      }else if(!email){
+      } else if (!email) {
         toast.error("Enter email")
-      }else if(!password){
+      } else if (!password) {
         toast.error("Enter password")
-      }else if(!confirmPassword){
-        toast.error ("Enter Confirm Password")
+      } else if (!confirmPassword) {
+        toast.error("Enter Confirm Password")
       }
-    }else if(password !== confirmPassword){
+    } else if (password !== confirmPassword) {
       toast.error("password does not match")
-    }else{
-      try{
+    } else {
+      try {
         setLoading(true);
-        const userCredential = await createUserWithEmailAndPassword(auth, email,password);
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         //save user's details in db
-        await setDoc(doc(db, "user", user.uid),{
+        await setDoc(doc(db, "user", user.uid), {
           name: name,
           email: email,
           profileImage: "",
         })
         // set user in context api and if user is not present fetch from firestore else get data from context api
-        setName("");setEmail(""); setPassword("");setConfirmPassword("");
+        setName(""); setEmail(""); setPassword(""); setConfirmPassword("");
         setLoading(false);
-        toast.success("User created!")
+        toast.success("Account created!")
         navigate("/login");
-      }catch(err){
+      } catch (err) {
         setLoading(false);
         setError(err.message);
         if (err.code === "auth/weak-password") {
           toast.error(error)
         } else if (err.code === "auth/email-already-in-use") {
           toast.error(error)
-        }else if(err.code === "auth/invalid-email"){
+        } else if (err.code === "auth/invalid-email") {
           toast.error(error)
         }
         console.log("error => ", err);
@@ -69,18 +68,20 @@ function SignupSignIn() {
     }
   }
   const handleLoginWithGoogle = () => {
-      signInWithPopup(auth, provider)
-      .then( async(response)=>{
+    signInWithPopup(auth, provider)
+      .then(async (response) => {
         setLoading(true);
         const user = response.user;
-        await setDoc(doc(db, "user", user.uid),{
+        await setDoc(doc(db, "user", user.uid), {
           name: user.displayName,
           email: user.email,
           profileImage: user.photoURL,
+          createdAt : new Date(),
         })
         // set user in context api and if user is not present fetch from firestore else get data from context api
-        console.log(user);
+        toast.success("Account created!");
         setLoading(false);
+        navigate("dashboard");
       })
       .catch((err) => {
         setLoading(false);
@@ -92,51 +93,62 @@ function SignupSignIn() {
         console.log("error code => ", err.code);
       })
   }
+  
+  const toggleFrom = () => {
+    setLoginForm(prev => !prev);
+  }
   return (
     <div className='signup_wrapper'>
       <h2 className='title'>
-        Sign Up on <span style={{color:"var(--theme)"}}>FInancely.</span>
+        Sign Up on <span style={{ color: "var(--theme)" }}>Financely.</span>
       </h2>
       <form>
         <Input
-        lable={"Full Name"}
-        state={name}
-        setState={setName}
-        placeholder={"Name"}
-        type={"text"}
-        />
-         <Input
-        lable={"Email"}
-        state={email}
-        setState={setEmail}
-        placeholder={"smaple@email.com"}
-        type={"email"}
-        />
-         <Input
-        lable={"Password"}
-        state={password}
-        setState={setPassword}
-        type={"password"}
+          lable={"Full Name"}
+          state={name}
+          setState={setName}
+          placeholder={"Name"}
+          type={"text"}
         />
         <Input
-        lable={"Confim Password"}
-        state={confirmPassword}
-        setState={setConfirmPassword}
-        type={"password"}
+          lable={"Email"}
+          state={email}
+          setState={setEmail}
+          placeholder={"smaple@email.com"}
+          type={"email"}
         />
-        <Button text={loading ? "Loading...": "SignUp using email and password"} 
-        onClick={handleSignUpUser}
+        <Input
+          lable={"Password"}
+          state={password}
+          setState={setPassword}
+          type={"password"}
+        />
+        <Input
+          lable={"Confim Password"}
+          state={confirmPassword}
+          setState={setConfirmPassword}
+          type={"password"}
+        />
+        <Button text={loading ? "Loading..." : "SignUp using email and password"}
+          onClick={handleSignUpUser}
         />
         <Breaker />
-        <Button text={loading ? "Loading..." : "Google Login"}blue={true} 
-        onClick={handleLoginWithGoogle}
+        <Button text={loading ? "Loading..." : "Google Login"} blue={true}
+          onClick={handleLoginWithGoogle}
         />
       </form>
       <div className="callLogin">
-        <span>Or have an Account Already?</span><Link to={"/login"} element = {< Login/>}>Click here</Link>
+        <span
+          onClick={toggleFrom}
+        >
+          Or have an Account Already?
+          <span style={{ cursor:"pointer",color: "var(--theme)",marginLeft:"5px"}}>
+            Click here
+          </span>
+        </span>
       </div>
     </div>
   )
 }
 
-export default SignupSignIn
+export default SignUp

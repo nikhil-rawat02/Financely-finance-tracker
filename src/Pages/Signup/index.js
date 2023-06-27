@@ -1,16 +1,21 @@
-import React from 'react'
-import Header from '../../Components/Header/index';
+import React, { useState } from 'react'
 import './index.css'
-import SignupSignIn from '../../Components/SignupSignIn';
-function index() {
+import Header from '../../Components/Header/index';
+import Signup from '../../Components/Signup';
+import Login from '../../Components/Login';
+
+function SignUpSingIn() {
+  
+  const [loginForm , setLoginForm] = useState(false);
   return (
     <>
       <Header />
       <div className="wrapper">
-        <SignupSignIn />
+        {!loginForm && <Signup setLoginForm = {setLoginForm}/>}
+        {loginForm && <Login setLoginForm = {setLoginForm}/>}
       </div>
     </>
   )
 }
 
-export default index
+export default SignUpSingIn
