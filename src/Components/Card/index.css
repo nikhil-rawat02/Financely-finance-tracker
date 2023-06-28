@@ -3,14 +3,35 @@
     min-width: 300;
     padding: 0.2rem !important;
 }
-.my_row{
+/* .my_row{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 90%;
     margin: 2rem auto ;
 
-}
+} */
 .ant-card-body p{
     margin-left: 1.1rem;
+}
+.row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem auto;
+    
+}
+.col{
+    flex-basis: 100;
+}
+
+@media screen and (max-width: 640px) {
+  .row{
+    flex-direction: column;
+    gap: 10px;    
+    justify-content: center;   
+}
+.col{
+    min-width: 20rem;
+    flex-basis: 100;
+}
 }

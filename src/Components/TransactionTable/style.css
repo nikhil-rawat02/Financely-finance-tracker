@@ -1,0 +1,51 @@
+.dashboard-container {}
+
+@media only screen and (max-width: 800px) {
+  .dashboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .filter-csv-container{
+    flex-direction: column;
+    gap: 10px;
+  }
+  .csv-container{
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+.search-bar {
+  position: relative;
+  width: 65%;
+  margin: 0.5rem 2rem;
+  border-radius: 10px;
+  background: whitesmoke;
+  display: inline-block;
+}
+
+.search-bar>input[type=text] {
+  padding-left: 20px;
+  width:100% !important;
+  padding-left: 2rem !important;
+}
+
+.anticon-search {
+  position: absolute !important;
+  top: 13px !important;
+  left: 10px !important;
+}
+.filter-csv-container{
+  display: flex;
+  justify-content: space-between;
+  padding-right: 2rem;
+}
+.csv-container{
+  display: flex;
+  justify-content: space-between;
+  height: fit-content;
+}
