@@ -1,15 +1,17 @@
 import { Select, Table, Radio } from 'antd'
 import React, { useEffect, useState } from 'react'
 import './style.css';
-import { SearchOutlined } from '@ant-design/icons';
+// import { SearchOutlined } from '@ant-design/icons';
 import Button from "../../Components/Button";
 import { parse, unparse } from 'papaparse';
 import { toast } from 'react-toastify';
+import Charts from '../Charts';
+import LineChart from '../LineChart';
 function TransactionTable({
-     transactions, 
-     addTransaction, 
-     fetchTransactions
-    }) {
+    transactions,
+    addTransaction,
+    fetchTransactions
+}) {
 
     const [x, setx] = useState(window.innerWidth);
     const [search, setSearch] = useState("");
@@ -29,14 +31,14 @@ function TransactionTable({
 
     const handleImportCSV = (event) => {
         event.preventDefault();
-        try{
+        try {
             parse(event.target.files[0], {
-                header:true,
-                complete: async function (res){
-                    for(const transaction of res.data){
+                header: true,
+                complete: async function (res) {
+                    for (const transaction of res.data) {
                         const newTransaction = {
                             ...transaction,
-                            amount:parseInt(transaction.amount),
+                            amount: parseInt(transaction.amount),
                         };
                         await addTransaction(newTransaction, true);
                     }
@@ -45,21 +47,21 @@ function TransactionTable({
             toast.success("All transaction added");
             fetchTransactions();
             event.target.files = null;
-        }catch(error){
+        } catch (error) {
             console.log("Error code => ", error.code);
             console.log("Error message => ", error.message)
         }
     }
-    
-    const handleExportCSV = () => {     
+
+    const handleExportCSV = () => {
         var csv = unparse({
-            fields:["name","type", "tag", "date", "amount"],
-            data:transactions
+            fields: ["name", "type", "tag", "date", "amount"],
+            data: transactions
         });
-        var blob = new Blob([csv],{type:'text/csv;charset=uft-8;'})
-       
+        var blob = new Blob([csv], { type: 'text/csv;charset=uft-8;' })
+
         var csvURL = URL.createObjectURL(blob);
-       const link = document.createElement("a");
+        const link = document.createElement("a");
         link.href = csvURL;
         link.download = "transaction.csv";
         document.body.appendChild(link);
@@ -84,60 +86,56 @@ function TransactionTable({
         {
             title: "Name",
             dataIndex: "name",
-           
+
         },
         {
             title: "Amount",
             dataIndex: "amount",
-           
+
         },
         !mediaScreen ?
             {
                 title: "Tag",
                 dataIndex: "tag",
-                
+
             } : {}
         ,
         {
             title: "Type",
             dataIndex: "type",
-           
+
         },
         {
             title: "Date",
             dataIndex: "date",
-           
+
         },
     ]
 
     let filterTransaction = [];
     let sortedTransaction = [];
-    
-    if(transactions){
-        console.log(transactions);
-        try{
-            filterTransaction = transactions.filter(item => item.name.toLowerCase().includes(search.toLowerCase()) &&
+
+    try {
+        filterTransaction = transactions.filter(item => item.name.toLowerCase().includes(search.toLowerCase()) &&
             item.type.includes(typeFilter));
-    
-            sortedTransaction = filterTransaction && filterTransaction.sort((a, b) => {
-                if (sortKey === 'date') {
-                    return new Date(a.date) - new Date(b.date);
-                } else if (sortKey === "amount") {
-                    return a.amount - b.amount;
-                } else {
-                    return 0;
-                }
-            });
-        }catch(error){
-            console.log("error code => ", error.code);
-            console.log("error message => ", error.message);
-        }
+
+        sortedTransaction = filterTransaction && filterTransaction.sort((a, b) => {
+            if (sortKey === 'date') {
+                return new Date(a.date) - new Date(b.date);
+            } else if (sortKey === "amount") {
+                return a.amount - b.amount;
+            } else {
+                return 0;
+            }
+        });
+    } catch (error) {
+        console.log("error code => ", error.code);
+        console.log("error message => ", error.message);
     }
-    
     return (
         <div className='dashboard-container'>
             <div className="search-bar">
-                <SearchOutlined />
+                {/* <SearchOutlined /> */}
                 <input
                     type="text"
                     value={search}
@@ -159,6 +157,10 @@ function TransactionTable({
                 <Select.Option value="income">Income</Select.Option>
                 <Select.Option value="expense">Expense</Select.Option>
             </Select>
+            {/* {sortedTransaction.length > 0 && 
+            <Charts sortedTransaction={sortedTransaction} />
+            } */}
+            
             <div className="filter-csv-container">
                 <Radio.Group
                     onChange={e => setSortKey(e.target.value)}
@@ -173,21 +175,20 @@ function TransactionTable({
                     <Radio.Button value="date">Sort by Date</Radio.Button>
                 </Radio.Group>
                 <div className="csv-container">
-                    <label 
-                    className='btn'
-                    htmlFor='file-csv' 
+                    <label
+                        className='btn'
+                        htmlFor='file-csv'
                     > Import CSV
                     </label>
-                    <input type="file" 
-                    id='file-csv'
-                    required
-                    onChange={handleImportCSV}
-                    style={{display:"none"}}
+                    <input type="file"
+                        id='file-csv'
+                        required
+                        onChange={handleImportCSV}
+                        style={{ display: "none" }}
                     />
                     <Button text="Export CSV" blue={true} onClick={handleExportCSV} />
                 </div>
             </div>
-
             <Table
                 dataSource={sortedTransaction && sortedTransaction} columns={columns}
             />

@@ -9,6 +9,8 @@ import { auth, db } from '../../firebase';
 import { toast } from 'react-toastify'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import TransactionTable from '../../Components/TransactionTable'
+import LineChart from '../../Components/LineChart';
+import PieChart from '../../Components/PieChart';
 function Dashboard() {
   const [user] = useAuthState(auth);
 
@@ -56,7 +58,7 @@ function Dashboard() {
       newArray.push(transaction);
       setTransactions(newArray);
       calculateBalance();
-      if(!many){
+      if (!many) {
         toast.success(`${transaction.type} Added!`)
       }
     } catch (error) {
@@ -105,6 +107,8 @@ function Dashboard() {
     calculateBalance();
   }, [transactions]);
 
+  let sortedTransaction = transactions.sort((a, b) => new Date(a.date) - new Date(b.date))
+  console.log(sortedTransaction);
   return (
     <div>
       <Header />
@@ -127,6 +131,25 @@ function Dashboard() {
         handleExpenseCancel={handleExpenseCancel}
         onFinish={onFinish}
       />
+      <div className="charts">
+        {transactions.length > 0 &&
+          <>
+            <LineChart sortedTransaction={sortedTransaction} />
+            <div className="pie-chart">
+              <div className="income-pie-chart">
+                <p style={{ textAlign: "center", }} >Income Data</p>
+                <PieChart sortedTransaction={sortedTransaction} income = {true}/>
+              </div>
+              <div className="expense-pie-chart">
+                <p style={{ paddingLeft:"3.2rem", }} >Expense Data</p>
+                <PieChart sortedTransaction={sortedTransaction} expense = {true} />
+              </div>
+            </div>
+
+          </>
+        }
+
+      </div>
       <TransactionTable
         transactions={transactions}
         addTransaction={addTransaction}
