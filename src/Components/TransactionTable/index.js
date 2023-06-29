@@ -1,12 +1,9 @@
-import { Select, Table, Radio } from 'antd'
-import React, { useEffect, useState } from 'react'
-import './style.css';
-// import { SearchOutlined } from '@ant-design/icons';
-import Button from "../../Components/Button";
+import React, { useEffect, useState } from 'react';
+import { Select, Table, Radio } from 'antd';
 import { parse, unparse } from 'papaparse';
 import { toast } from 'react-toastify';
-import Charts from '../Charts';
-import LineChart from '../LineChart';
+import Button from "../../Components/Button";
+import './style.css';
 function TransactionTable({
     transactions,
     addTransaction,
@@ -135,7 +132,6 @@ function TransactionTable({
     return (
         <div className='dashboard-container'>
             <div className="search-bar">
-                {/* <SearchOutlined /> */}
                 <input
                     type="text"
                     value={search}
@@ -157,10 +153,6 @@ function TransactionTable({
                 <Select.Option value="income">Income</Select.Option>
                 <Select.Option value="expense">Expense</Select.Option>
             </Select>
-            {/* {sortedTransaction.length > 0 && 
-            <Charts sortedTransaction={sortedTransaction} />
-            } */}
-            
             <div className="filter-csv-container">
                 <Radio.Group
                     onChange={e => setSortKey(e.target.value)}

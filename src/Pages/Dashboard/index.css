@@ -1,36 +1,43 @@
-.account_details_cards_container{
+.account_details_cards_container {
     padding: 2rem;
 }
-.ant-card-body{
+
+.ant-card-body {
     font-family: 'Montserrat', sans-serif;
     padding: 10px 24px !important;
 }
-.charts{
+
+.charts {
     margin: 1rem 2rem;
     box-shadow: var(--shadow-box);
     border-radius: 5px;
     padding: 1rem;
 }
-.pie-chart{
+
+.pie-chart {
     margin: 2rem 0;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     gap: 4rem;
 }
-.pie-chart > div{
+
+.pie-chart>div {
     display: flex;
     flex-direction: column;
-    gap: 1rem;   
+    gap: 1rem;
+    width: 18.5rem;
 }
-.pie-chart > div > div{
+
+.pie-chart>div>div {
     width: 300px !important;
     height: 200px !important;
 }
+
 @media only screen and (max-width: 750px) {
-    .pie-chart{
+    .pie-chart {
         flex-direction: column;
         justify-content: center;
         gap: 2rem;
     }
-  }
+}

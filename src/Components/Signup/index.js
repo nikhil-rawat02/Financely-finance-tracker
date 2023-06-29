@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
-import './style.css';
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { signInWithPopup } from 'firebase/auth';
+import { auth, db, doc, setDoc, provider } from '../../firebase';
 import Input from '../Input';
 import Button from '../Button';
 import Breaker from '../Breaker';
-import { toast } from 'react-toastify';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth, db, doc, setDoc, provider } from '../../firebase';
-import { useNavigate } from 'react-router-dom';
-import { signInWithPopup } from 'firebase/auth';
+import './style.css';
 
 function SignUp({ setLoginForm }) {
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +17,6 @@ function SignUp({ setLoginForm }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const navigate = useNavigate();
   const handleSignUpUser = async (e) => {
     e.preventDefault();
 
@@ -66,6 +65,7 @@ function SignUp({ setLoginForm }) {
       }
     }
   }
+
   const handleLoginWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then(async (response) => {
@@ -75,12 +75,11 @@ function SignUp({ setLoginForm }) {
           name: user.displayName,
           email: user.email,
           profileImage: user.photoURL,
-          createdAt : new Date(),
+          createdAt: new Date(),
         })
         // set user in context api and if user is not present fetch from firestore else get data from context api
         toast.success(`Welcome! ${user.displayName}`);
         setLoading(false);
-        navigate("dashboard");
       })
       .catch((err) => {
         setLoading(false);
@@ -92,10 +91,11 @@ function SignUp({ setLoginForm }) {
         console.log("error code => ", err.code);
       })
   }
-  
+
   const toggleFrom = () => {
     setLoginForm(prev => !prev);
   }
+
   return (
     <div className='signup_wrapper'>
       <h2 className='title'>
@@ -141,7 +141,7 @@ function SignUp({ setLoginForm }) {
           onClick={toggleFrom}
         >
           Or have an Account Already?
-          <span style={{ cursor:"pointer",color: "var(--theme)",marginLeft:"5px"}}>
+          <span style={{ cursor: "pointer", color: "var(--theme)", marginLeft: "5px" }}>
             Click here
           </span>
         </span>

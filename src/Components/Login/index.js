@@ -1,12 +1,10 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth, db, doc, getDoc } from '../../firebase';
 import { toast } from 'react-toastify';
+import { auth, db, doc, getDoc } from '../../firebase';
 import Input from '../Input';
 import Button from '../Button';
 import Breaker from '../Breaker';
-import './style.css';
 
 function Login({ setLoginForm }) {
 
@@ -14,7 +12,6 @@ function Login({ setLoginForm }) {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState("");
 
-  const navigate = useNavigate();
   const handleLoginUSer = async (e) => {
     e.preventDefault();
     try {
@@ -28,7 +25,6 @@ function Login({ setLoginForm }) {
 
       // use context api and set user data
       setLoading(false);
-      navigate("dashboard");
     } catch (error) {
       if (error.code === 'auth/wrong-password') {
         toast.error("wrong password");
@@ -71,7 +67,7 @@ function Login({ setLoginForm }) {
           onClick={toggleForm}
         >
           Don't have an Account?
-          <span style={{ cursor:"pointer", color: "var(--theme)",marginLeft:"5px" }}>
+          <span style={{ cursor: "pointer", color: "var(--theme)", marginLeft: "5px" }}>
             Create Account
           </span>
         </span>

@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import './index.css'
-import Header from '../../Components/Header'
-import Cards from '../../Components/Card'
-import AddIncome from '../../Components/Modals/addIncome';
-import AddExpense from '../../Components/Modals/addExpense';
-import { addDoc, collection, getDocs, query } from 'firebase/firestore';
-import { auth, db } from '../../firebase';
-import { toast } from 'react-toastify'
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import TransactionTable from '../../Components/TransactionTable'
+import { addDoc, collection, getDocs, query } from 'firebase/firestore';
+import ChartsNotAvailable from '../../Components/ChartsNotAvailable';
+import TransactionTable from '../../Components/TransactionTable';
+import AddExpense from '../../Components/Modals/addExpense';
+import AddIncome from '../../Components/Modals/addIncome';
 import LineChart from '../../Components/LineChart';
 import PieChart from '../../Components/PieChart';
+import Header from '../../Components/Header';
+import { auth, db } from '../../firebase';
+import Cards from '../../Components/Card'
+import './index.css';
+
 function Dashboard() {
+
   const [user] = useAuthState(auth);
 
   const [isExpenseModalVisible, setIsExpenseModalVisible] = useState(false);
@@ -103,12 +106,13 @@ function Dashboard() {
     setIncome(incomeTotal);
     setExpense(expenseTotal);
   }
+
   useEffect(() => {
     calculateBalance();
   }, [transactions]);
 
-  let sortedTransaction = transactions.sort((a, b) => new Date(a.date) - new Date(b.date))
-  console.log(sortedTransaction);
+  let sortedTransaction = transactions.sort((a, b) => new Date(a.date) - new Date(b.date));
+
   return (
     <div>
       <Header />
@@ -132,21 +136,22 @@ function Dashboard() {
         onFinish={onFinish}
       />
       <div className="charts">
-        {transactions.length > 0 &&
+        {transactions.length > 0 ?
           <>
             <LineChart sortedTransaction={sortedTransaction} />
             <div className="pie-chart">
               <div className="income-pie-chart">
                 <p style={{ textAlign: "center", }} >Income Data</p>
-                <PieChart sortedTransaction={sortedTransaction} income = {true}/>
+                <PieChart sortedTransaction={sortedTransaction} income={true} />
               </div>
               <div className="expense-pie-chart">
-                <p style={{ paddingLeft:"3.2rem", }} >Expense Data</p>
-                <PieChart sortedTransaction={sortedTransaction} expense = {true} />
+                <p style={{ paddingLeft: "3.2rem", }} >Expense Data</p>
+                <PieChart sortedTransaction={sortedTransaction} expense={true} />
               </div>
             </div>
-
           </>
+          :
+          <ChartsNotAvailable />
         }
 
       </div>

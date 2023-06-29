@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Modal, Form, Input, DatePicker, Select } from "antd";
+
 function AddIncome({
   isIncomeModalVisible,
   handleIncomeCancel,
@@ -12,7 +13,7 @@ function AddIncome({
       style={{ fontWeight: 600 }}
       title="Add Income"
       open={isIncomeModalVisible}
-      onCancel={()=>{
+      onCancel={() => {
         form.resetFields();
         handleIncomeCancel();
       }}
@@ -39,7 +40,6 @@ function AddIncome({
         >
           <Input type="text" className="custom_input" />
         </Form.Item>
-
         <Form.Item
           style={{ fontWeight: 600 }}
           label="Amount"
@@ -53,7 +53,6 @@ function AddIncome({
         >
           <Input type="number" className="custom_input" />
         </Form.Item>
-
         <Form.Item
           style={{ fontWeight: 600 }}
           label="Date"
@@ -67,7 +66,6 @@ function AddIncome({
         >
           <DatePicker format="YYYY-MM-DD" className="custom_input" />
         </Form.Item>
-
         <Form.Item
           style={{ fontWeight: 600 }}
           label="Tag"

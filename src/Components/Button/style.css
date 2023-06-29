@@ -1,4 +1,4 @@
-.btn{
+.btn {
     color: var(--theme);
     text-align: center;
     margin: 0.9rem 1rem;
@@ -15,16 +15,19 @@
     white-space: nowrap;
     overflow-x: hidden;
 }
-.btn:hover{
+
+.btn:hover {
     background-color: var(--theme);
     color: var(--white);
     transition: all 0.3s;
 }
-.btn_blue{
+
+.btn_blue {
     background-color: var(--theme) !important;
     color: var(--white);
 }
-.btn_blue:hover{
+
+.btn_blue:hover {
     background-color: var(--white) !important;
     color: var(--theme) !important;
     transition: all 0.3s;

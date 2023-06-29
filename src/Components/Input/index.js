@@ -1,6 +1,8 @@
-import React from 'react'
-import './style.css'
+import React from 'react';
+import './style.css';
+
 function index({ lable, state, setState, placeholder, type }) {
+
   return (
     <div className='input_wrapper'>
       <p className='input_wrapper_lable'>{lable}</p>

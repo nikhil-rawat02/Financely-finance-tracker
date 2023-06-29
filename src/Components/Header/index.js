@@ -1,20 +1,15 @@
-import React, { useEffect } from 'react'
-import './index.css'
-import { auth } from '../../firebase';
+import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { toast } from 'react-toastify';
+import { auth } from '../../firebase';
+import './index.css';
 
 function Header() {
 
-  const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
-  useEffect(() => {
-    if (user) {
-      // navigate('dashboard');
-    }
-  }, [user, loading])
+  const [user] = useAuthState(auth);
 
   const handleLogout = () => {
     try {

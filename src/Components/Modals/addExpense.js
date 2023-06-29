@@ -1,10 +1,12 @@
 import React from 'react';
 import { Button, Modal, Form, Input, DatePicker, Select } from "antd";
+
 function AddExpense({
   isExpenseModalVisible,
   handleExpenseCancel,
   onFinish,
 }) {
+
   const [form] = Form.useForm();
 
   return (
@@ -12,7 +14,7 @@ function AddExpense({
       style={{ fontWeight: 600 }}
       title="Add Expense"
       open={isExpenseModalVisible}
-      onCancel={()=>{
+      onCancel={() => {
         form.resetFields();
         handleExpenseCancel();
       }}
@@ -26,7 +28,6 @@ function AddExpense({
           form.resetFields();
         }}
       >
-
         <Form.Item
           style={{ fontWeight: 600 }}
           label="Name"
@@ -40,7 +41,6 @@ function AddExpense({
         >
           <Input type="text" className="custom_input" />
         </Form.Item>
-
         <Form.Item
           style={{ fontWeight: 600 }}
           label="Amount"
@@ -54,7 +54,6 @@ function AddExpense({
         >
           <Input type="number" className="custom_input" />
         </Form.Item>
-
         <Form.Item
           style={{ fontWeight: 600 }}
           label="Date"
@@ -68,7 +67,6 @@ function AddExpense({
         >
           <DatePicker format="YYYY-MM-DD" className="custom_input" />
         </Form.Item>
-
         <Form.Item
           style={{ fontWeight: 600 }}
           label="Tag"

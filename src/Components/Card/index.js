@@ -1,7 +1,8 @@
-import { Card, Col, Row } from 'antd';
 import React from 'react';
+import { Card, Col, Row } from 'antd';
 import Button from '../Button';
-import './index.css'
+import './index.css';
+
 const Cards = ({ showExpenseModal, showIncomeModal, income, expense }) => (
   <Row gutter={16} className='row' style={{ flexWrap: "wrap" }} >
     <Col span={8} className='col' >
@@ -15,7 +16,7 @@ const Cards = ({ showExpenseModal, showIncomeModal, income, expense }) => (
     </Col>
     <Col span={8} className='col' >
       <Card style={{ boxShadow: "var(--shadow-box)", minWidth: "90px" }} title="Total Income" bordered={true}>
-        <p style={{ marginLeft: "1.1rem" }}>{`$ ${income}`}</p>
+        <p style={{ marginLeft: "1.1rem", }}>{`$ ${income}`}</p>
         <Button text="Add Income" onClick={showIncomeModal} blue={true} />
       </Card>
     </Col>

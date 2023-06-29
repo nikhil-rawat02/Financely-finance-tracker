@@ -1,4 +1,4 @@
-.signup_wrapper{
+.signup_wrapper {
     width: 40%;
     max-width: 400px;
     height: auto;
@@ -6,23 +6,27 @@
     border-radius: 1rem;
     padding: 1rem 1.5rem;
 }
-.title{
+
+.title {
     font-weight: 500;
     font-size: 1.2rem;
     text-align: center;
     margin-bottom: 0.8rem;
 }
-.callLogin{
+
+.callLogin {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 5px;
 }
-.callLogin >a, .callLogin > span{
+
+.callLogin>a,
+.callLogin>span {
     font-size: 0.9rem;
     text-decoration: none;
 }
 
-.callLogin >a{
+.callLogin>a {
     color: var(--theme);
 }
