@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { signInWithPopup } from 'firebase/auth';
@@ -49,6 +49,7 @@ function SignUp({ setLoginForm }) {
         setName(""); setEmail(""); setPassword(""); setConfirmPassword("");
         setLoading(false);
         toast.success("Account created!")
+        setLoginForm(true);
       } catch (err) {
         setLoading(false);
         setError(err.message);
@@ -96,6 +97,9 @@ function SignUp({ setLoginForm }) {
     setLoginForm(prev => !prev);
   }
 
+  useEffect(()=>{
+    setLoginForm(false);
+  },[])
   return (
     <div className='signup_wrapper'>
       <h2 className='title'>

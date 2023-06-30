@@ -141,7 +141,7 @@ function Dashboard() {
             <LineChart sortedTransaction={sortedTransaction} />
             <div className="pie-chart">
               <div className="income-pie-chart">
-                <p style={{ textAlign: "center", }} >Income Data</p>
+                <p style={{ paddingLeft: "3.2rem", }} >Income Data</p>
                 <PieChart sortedTransaction={sortedTransaction} income={true} />
               </div>
               <div className="expense-pie-chart">
